@@ -40,7 +40,7 @@ export default {
     computed: {
         matches() {
             return this.suggestions.filter((str) => {
-                return str.indexOf(this.selection) >= 0;
+                return str.toLowerCase().indexOf(this.selection) >= 0;
             });
         },
 
@@ -54,8 +54,8 @@ export default {
     methods: {
         enter() {
             this.selection = this.matches[this.current];
-            this.localValue = this.
-            this.$emit('selected', this.current)
+            this.localValue = this.selection;
+            this.$emit('selected', this.localValue);
             this.open = false;
         },
 
@@ -83,7 +83,7 @@ export default {
         suggestionClick(index) {
             this.selection = this.matches[index];
             this.localValue = this.matches[index];
-            this.$emit('selected', this.matches[index]);
+            this.$emit('selected', this.selection);
             this.open = false;
         },
     }
