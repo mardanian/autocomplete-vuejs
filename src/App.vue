@@ -1,25 +1,28 @@
 <template>
-  <div id="app">
-    <h1>{{ msg }}</h1>
+  <div class="container">
+    <autocomplete :suggestions="cities" @selected="valueSelected"></autocomplete>
+    <br>
+    {{ value }}
   </div>
 </template>
 
 <script>
+import AutoComplete from './AutoComplete.vue';
+
 export default {
-  data () {
+  components: {
+    'autocomplete': AutoComplete
+  },
+  data() {
     return {
-      // note: changing this line won't causes changes
-      // with hot-reload because the reloaded component
-      // preserves its current state and we are modifying
-      // its initial state.
-      msg: 'Hello Vue!'
+      cities: [ 'Bangalore','Chennai','Cochin','Delhi','Kolkata','Mumbai' ],
+      value: ''
+    }
+  },
+  methods: {
+    valueSelected(value) {
+      this.value = value;
     }
   }
 }
 </script>
-
-<style>
-body {
-  font-family: Helvetica, sans-serif;
-}
-</style>

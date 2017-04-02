@@ -1,17 +1,7 @@
-import Vue from 'vue';
-import Autocomplete from './Autocomplete.vue';
+import Vue from 'vue'
+import App from './App.vue'
 
 new Vue({
-    el: 'body',
-
-    components: { Autocomplete },
-
-    data: {
-        cities : [
-            'Bangalore','Chennai','Cochin','Delhi','Kolkata','Mumbai'
-        ],
-
-        value: ''
-    }
-
-});
+  el: '#app',
+  render: h => h(App)
+})

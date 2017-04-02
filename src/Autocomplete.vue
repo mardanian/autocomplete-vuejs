@@ -1,3 +1,22 @@
+<template>
+<div style="position:relative" v-bind:class="{'open':openSuggestion}">
+    <input class="form-control" type="text" v-model="selection"
+        @keydown.enter = 'enter'
+        @keydown.down = 'down'
+        @keydown.up = 'up'
+        @input = 'change'
+    />
+    <ul class="dropdown-menu" style="width:100%">
+        <li v-for="(suggestion, index) in matches"
+            v-bind:class="{'active': isActive(index)}"
+            @click="suggestionClick(index)"
+        >
+            <a href="#">{{ suggestion }}</a>
+        </li>
+    </ul>
+</div>
+</template>
+
 <script>
 import Vue from 'vue';
 
@@ -6,7 +25,8 @@ export default {
     data() {
         return {
             open: false,
-            current: 0
+            current: 0,
+            selection: ''
         }
     },
 
@@ -14,12 +34,6 @@ export default {
         suggestions: {
             type: Array,
             required: true
-        },
-
-        selection: {
-            type: String,
-            required: true,
-            twoWay: true
         }
     },
 
@@ -40,6 +54,8 @@ export default {
     methods: {
         enter() {
             this.selection = this.matches[this.current];
+            this.localValue = this.
+            this.$emit('selected', this.current)
             this.open = false;
         },
 
@@ -66,27 +82,11 @@ export default {
 
         suggestionClick(index) {
             this.selection = this.matches[index];
+            this.localValue = this.matches[index];
+            this.$emit('selected', this.matches[index]);
             this.open = false;
         },
     }
 }
 
 </script>
-<template>
-<div style="position:relative" v-bind:class="{'open':openSuggestion}">
-    <input class="form-control" type="text" v-model="selection"
-        @keydown.enter = 'enter'
-        @keydown.down = 'down'
-        @keydown.up = 'up'
-        @input = 'change'
-    />
-    <ul class="dropdown-menu" style="width:100%">
-        <li v-for="suggestion in matches"
-            v-bind:class="{'active': isActive($index)}"
-            @click="suggestionClick($index)"
-        >
-            <a href="#">{{ suggestion }}</a>
-        </li>
-    </ul>
-</div>
-</template>
